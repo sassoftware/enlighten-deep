@@ -75,6 +75,7 @@ providers in the training data:
 
 a.) The entire Euclidean distance matrix of the given feature space is
 calculated using the DISTANCE procedure in SAS/STAT.
+
 b.) To supplement these findings, the FASTCLUS procedure in SAS/STAT is
 used to apply k-means clustering to the same training data. 
 
