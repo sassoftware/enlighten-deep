@@ -22,7 +22,7 @@ limitations under the License.
 * STANDARDIZE NUMERIC INPUTS - REQUIRED BEFORE CLUSTERING                    *;
 * CREATE 16 K-MEANS CLUSTERS                                                 *;
 * CREATE DATA MINING DATABASE WITH PROC DMDB -                               *;
-* 	REQUIRED CATALOG FOR PROC NEURAL                                     *;
+*   REQUIRED CATALOG FOR PROC NEURAL                                         *;
 * TRAIN SIMPLE DENOISING AUTOENCODER WITH 5 HIDDEN LAYERS                    *;
 * SCORE TRAINING DATA WITH NEURAL NETWORK                                    *;
 * KEEP OUTPUT 2-DIMENSIONAL MIDDLE LAYER (H31,H32) AS NEW FEATURE SPACE      *;                       
@@ -61,7 +61,7 @@ ods html close;
 *** PLACE NUMERIC INPUTS INTO MACRO LIST FOR CONVENIENCE; 
 proc contents 
    data=provider_summary 
-   out=names (keep = name 
+   out=names (keep=name 
       where=(strip(name)^="provider_id" 
       and strip(name)^="name")); 
 run;
@@ -69,9 +69,9 @@ filename emutil catalog 'sashelp.emutil.em_varmacro.source';
 %include emutil; 
 filename emutil; 
 %EM_VARMACRO(
-   name= INPUTS,
-   metadata= names, 
-   nummacro= NUM_INPUTS
+   name=INPUTS,
+   metadata=names, 
+   nummacro=NUM_INPUTS
 );
 
 ******************************************************************************; 
@@ -103,7 +103,7 @@ run;
 proc dmdb 
    data=outc 
    out=outc_dmdb
-   dmdbcat= work.cat_outc_dmdb;
+   dmdbcat=work.cat_outc_dmdb;
    var %INPUTS;
    id cluster;
    target %INPUTS;
@@ -114,7 +114,7 @@ proc neural
    data=outc
    dmdbcat=work.cat_outc_dmdb
    random=44444;
-   performance compile details cpucount= &num_cores threads=yes;
+   performance compile details cpucount=&num_cores. threads=yes;
    
    nloptions fconv=0.00001 noprint; /* noprint=DO NOT SHOW WEIGHT VALUES */
    netoptions decay=1.0; 
@@ -148,7 +148,7 @@ proc neural
    
    freeze h1->h2; 
    thaw h2->h3; 
-   train maxtime= 10000 maxiter= 2000;
+   train maxtime=10000 maxiter=2000;
    
    freeze h2->h3; 
    thaw h3->h4; 
@@ -196,10 +196,10 @@ run;
 
 *** FIND PAIRWISE DISTANCES FOR EVERY POINT INCLUDING ORIGIN;  
 proc distance 
-   data= score2D_origin
-   out= distance
-   method= euclid
-   shape= square
+   data=score2D_origin
+   out=distance
+   method=euclid
+   shape=square
    nostd; 
    var interval (h31 h32);
    copy provider_id;
@@ -249,7 +249,7 @@ data plot;
 run;
 
 *** PLOT;
-ods graphics / labelmax= 3400; /* LABEL COLLISION AVOIDANCE */
+ods graphics / labelmax=3400; /* LABEL COLLISION AVOIDANCE */
 proc sgplot data=plot;
    scatter x=h31 y=h32 / 
    transparency=0.35
