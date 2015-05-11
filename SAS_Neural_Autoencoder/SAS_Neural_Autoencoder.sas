@@ -17,15 +17,15 @@ limitations under the License.
 ******************************************************************************/
 
 ******************************************************************************;                        
-* VARIOUS SAS ROUTINES FOR TRAINING A SIMPLE, DENOISNG AUTOENCODER           *;
+* VARIOUS SAS ROUTINES FOR TRAINING A SIMPLE, DENOISNG AUTOENCODER:          *;
 * CREATE LIST OF INPUTS AS A MACRO                                           *;
 * STANDARDIZE NUMERIC INPUTS - REQUIRED BEFORE CLUSTERING                    *;
 * CREATE 16 K-MEANS CLUSTERS                                                 *;
 * CREATE DATA MINING DATABASE WITH PROC DMDB -                               *;
 *   REQUIRED CATALOG FOR PROC NEURAL                                         *;
 * TRAIN SIMPLE DENOISING AUTOENCODER WITH 5 HIDDEN LAYERS                    *;
-* SCORE TRAINING DATA WITH NEURAL NETWORK                                    *;
-* KEEP OUTPUT 2-DIMENSIONAL MIDDLE LAYER (H31,H32) AS NEW FEATURE SPACE      *;                       
+* SCORE TRAINING DATA WITH TRAINED NEURAL NETWORK                            *;
+* KEEP OUTPUT OF 2-DIMENSIONAL MIDDLE LAYER (H31,H32) AS NEW FEATURE SPACE   *;                       
 * SET THE MEDIAN POINT AS THE ORIGIN OF THE NEW 2-D FEATURE SPACE            *;   
 * CALCULATE THE DISTANCE OF EACH POINT IN NEW FEATURE SPACE FROM THIS ORIGIN *;
 * DETECT OUTLIERS AS FIRST 5 POINTS FARTHEST FROM THE ORIGIN                 *;
@@ -49,8 +49,8 @@ limitations under the License.
 *** SET THE NUMBER OF OUTLIERS TO FIND (DEFAULT=5); 
 %let num_outliers=5; 
 
-x cd "&git_repo_dir";
-libname l "&git_repo_dir"; 
+x cd "&git_repo_dir.";
+libname l "&git_repo_dir."; 
 data provider_summary;
    set l.provider_summary;
 run;
@@ -245,7 +245,7 @@ run;
 proc sort data=plot; by descending Dist3338; run;
 data plot; 
    set plot; 
-   if _n_> &num_outliers then name='';
+   if _n_> &num_outliers. then name='';
 run;
 
 *** PLOT;
