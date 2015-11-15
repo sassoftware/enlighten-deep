@@ -29,7 +29,7 @@ This code approximates methods similar to those put forth in:
 - Hinton, G. E. and Salakhutdinov, R. R. 2006. “Reducing the Dimensionality
 of Data with Neural Networks.” Science 313:504–507.
 
--Vincent, Pascal, et al. "Extracting and composing robust features with
+- Vincent, Pascal, et al. "Extracting and composing robust features with
 denoising autoencoders." Proceedings of the 25th international conference
 on Machine learning. ACM, 2008.
 
