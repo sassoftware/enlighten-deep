@@ -7,7 +7,7 @@ you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
    http://www.apache.org/licenses/LICENSE-2.0
-   
+
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,16 +16,22 @@ limitations under the License.
 
 ******************************************************************************/
 
+===============
+
 SAS_NEURAL_Autoencoder
 
 ===============
 
-Code and materials for approximating a stacked denoising autoencoder with
-SAS Enterprise Miner PROC NEURAL.
+Code and materials for approximating a stacked autoencoder with SAS
+Enterprise Miner PROC NEURAL.
 
-This code approximates the methods put forth in:
-Hinton, G. E. and Salakhutdinov, R. R. 2006. “Reducing the Dimensionality 
+This code approximates methods similar to those put forth in:
+- Hinton, G. E. and Salakhutdinov, R. R. 2006. “Reducing the Dimensionality
 of Data with Neural Networks.” Science 313:504–507.
+
+-Vincent, Pascal, et al. "Extracting and composing robust features with
+denoising autoencoders." Proceedings of the 25th international conference
+on Machine learning. ACM, 2008.
 
 These examples where tested in the following environment:
 
@@ -41,7 +47,7 @@ SAS Enterprise Miner 13.2
 
 ===============
 
-This code was first used as a demo at KDD 2014. 
+This code was first used as a demo at KDD 2014.
 
 It was developed as part of a solution for the Cloudera Data Science
 Challenge 2:
@@ -77,12 +83,12 @@ a.) The entire Euclidean distance matrix of the given feature space is
 calculated using the DISTANCE procedure in SAS/STAT.
 
 b.) To supplement these findings, the FASTCLUS procedure in SAS/STAT is
-used to apply k-means clustering to the same training data. 
+used to apply k-means clustering to the same training data.
 
 (In a separate analysis, the aligned box criterion (ABC) was used to estimate
 the best number of clusters - 16 - for this particular feature space. The
 aligned box criterion is available through the NOC option of the HPLCUS
-procedure in SAS Enterprise Miner, but is not shown here.) 
+procedure in SAS Enterprise Miner, but is not shown here.)
 
 The clustering results enabled the pinpointing of the furthest Euclidean
 distance outliers that also formed their own cluster far from other
@@ -90,9 +96,8 @@ clusters.
 
 To visualize the combined results of both approaches, the NEURAL procedure in
 SAS Enterprise Miner is used to approximate a type of deep neural network,
-known as a stacked denoising autoencoder, to accurately project the newly
-labeled points from the given feature space into a two-dimensional space
-(Hinton and Salakhutdinov 2006).
+known as a stacked autoencoder, to accurately project the newly labeled points
+from the given feature space into a two-dimensional space.
 
 The generated plot is an optimal, nonlinear, two-dimensional projection of the
 provider training data which contains Medicare billing information, the number
