@@ -17,7 +17,7 @@ limitations under the License.
 ******************************************************************************/
 
 ******************************************************************************;
-* VARIOUS SAS ROUTINES FOR TRAINING A SIMPLE STACKED AUTOENCODER:            *;
+* VARIOUS SAS ROUTINES FOR APPROXIMATING A STACKED AUTOENCODER:              *;
 * CREATE LIST OF INPUTS AS A MACRO                                           *;
 * STANDARDIZE NUMERIC INPUTS - REQUIRED BEFORE CLUSTERING                    *;
 * CREATE 16 K-MEANS CLUSTERS                                                 *;
@@ -113,7 +113,7 @@ proc dmdb
    target %INPUTS;
 run;
 
-*** TRAIN SIMPLE DENOISING AUTOENCODER WITH 5 HIDDEN LAYERS;
+*** TRAIN SIMPLE STACKED AUTOENCODER WITH 5 HIDDEN LAYERS;
 proc neural
    data=outc
    dmdbcat=work.cat_outc_dmdb
